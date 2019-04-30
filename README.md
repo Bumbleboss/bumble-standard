@@ -1,2 +1,2 @@
-# bumble-standards
-an offspring from code wars
+# Bumble's standard library for node.js
+It's an offspring, believe me.
