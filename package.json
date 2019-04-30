@@ -1,0 +1,14 @@
+{
+  "name": "bumble-standard",
+  "version": "0.0.1",
+  "description": "Library packed with formulas functions and such based on highschool material",
+  "main": "bumble-standard.js",
+  "author": {
+    "name": "Bumbleboss",
+    "email": "me@bumbleboss.xyz",
+    "url": "https://github.com/Bumbleboss"
+  },
+  "repository": {
+    "url": "https://github.com/Bumbleboss/bumble-standard"
+  }
+}
