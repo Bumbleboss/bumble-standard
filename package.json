@@ -1,7 +1,7 @@
 {
   "name": "bumble-standard",
-  "version": "0.0.1",
-  "description": "Library packed with formulas functions and such based on highschool material",
+  "version": "0.0.2",
+  "description": "Library packed with formulas and such based on highschool material",
   "main": "bumble-standard.js",
   "author": {
     "name": "Bumbleboss",
