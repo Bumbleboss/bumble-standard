@@ -1,4 +1,8 @@
-const utf = require('./unicodes')
+const utf = require('./unicodes');
+const config = require('../config');
+const degtorad = Math.PI/180;
+const radtodeg = 180/Math.PI;
+
 class Vector {
   constructor(x, y) {
     this.x = x;
@@ -15,9 +19,8 @@ class Vector {
 }
 exports.Vector = Vector;
 
-
 /**
- * Gets the component form of a vector using the start and end point
+ * Calculates the component form of a vector using the start and end point
  * @param {Vector} a start point
  * @param {Vector} b end point
  */
@@ -26,40 +29,25 @@ exports.getComponentForm = function(a, b) {
 }
 
 /**
- * Gets the length of a vector using a start and end point
- * @param {Vector} a start point
- * @param {Vector} b end point
+ * Calculates the magnitude of a vector by providing one or two Vector objects
  */
-getLength = function() {
-  let args = arguments;
+getMagnitude = function(...args) {
   if(args.length == 1) {
-    let eq = Math.pow(args[0].x, 2) + Math.pow(args[0].y, 2);
-    return {
-      ans: Math.sqrt(eq),
-      toString: function() {
-        return (Number.isInteger(this.ans) ? this.ans : utf.sqrt + eq);
-      }
-    }
+    return Math.sqrt(Math.pow(args[0].x, 2) + Math.pow(args[0].y, 2))
   }else{
-    let eq = Math.pow(args[1].x - args[0].x, 2) + Math.pow(args[1].y - args[0].y, 2);
-    return {
-      ans: Math.sqrt(eq),
-      toString: function() {
-        return (Number.isInteger(this.ans) ? this.ans : utf.sqrt + eq);
-      }
-    }
+    return Math.sqrt(Math.pow(args[1].x - args[0].x, 2) + Math.pow(args[1].y - args[0].y, 2));
   }
 }
-exports.getLength = getLength;
+exports.getMagnitude = getMagnitude;
 
 /**
  * Addition in vectors
  */
-exports.add = function() {
+exports.add = function(...args) {
   let x = 0, y = 0, i = 0;
-  for (;i < arguments.length; i++) {
-    x += arguments[i][0];
-    y += arguments[i][1];
+  for (;i < args.length; i++) {
+    x += args[i].x;
+    y += args[i].y;
   }
   return new Vector(x, y);
 }
@@ -67,38 +55,75 @@ exports.add = function() {
 /**
  * Subtraction in vectors
  */
-exports.subtract = function() {
-  let i = 0, x = arguments[0][0], y = arguments[0][1];
-  for (;i < arguments.length - 1; i++) {
-    x -= arguments[i+1][0]
-    y -= arguments[i+1][1]
+exports.subtract = function(...args) {
+  let i = 0, x = args[0].x, y = args[0].y;
+  for (;i < args.length - 1; i++) {
+    x -= args[i+1].x
+    y -= args[i+1].y
   }
   return new Vector(x, y);
 }
 
 /**
  * Multiplication in vectors
- * @param {Number} n number
- * @param {Vector} v the vector that is multiplied
+ * @param {Number} n factor
+ * @param {Vector} v the factored vector
  */
 exports.multiply = function(n, v) {
   return new Vector(n*v.x, n*v.y);
 }
 
 /**
- * Gets the unit of a vector
+ * Calculates the unit of a vector
  * @param {Vector} v the provided vector
  */
 exports.getUnit = function(v) {
-  let la = getLength(v).ans;
-  let ls = getLength(v).toString();
-  return {
-    ans: new Vector(v.x/la, v.y/la),
-    toString: function() {
-      if(Number.isInteger(la)) {
-        return new Vector(v.x+utf.divison+ls, v.y+utf.divison+ls)
-      }
-      return new Vector(v.x+ls+utf.divison+Math.round(la*la), v.y+ls+utf.divison+Math.round(la*la))
-    }
-  }
+  let la = getMagnitude(v);
+  return new Vector(v.x/la, v.y/la);
+}
+
+/**
+ * Calculates the compnent form of a vector using its angle and magnitude
+ * @param {Number} angle
+ * @param {Number} magnitude
+ */
+exports.getComponentFormByAngleAndMagnitude = function(angle, magnitude) {
+  let l = Math.abs(magnitude), a = (config.useRad?1:degtorad)*angle;
+  return new Vector(l*Math.cos(a), l*Math.sin(a));
+}
+
+/**
+ * Calculates the direction of a vector
+ * @param {Vector} a the provided vector
+ */
+exports.getDirection = function(a) {
+  return (config.useRad?1:radtodeg)*Math.atan2(a.y, a.x)
+}
+
+/**
+ * Calculates the dot product of two vectors
+ * @param {Vector} a first vector
+ * @param {Vector} b second vector
+ */
+function getDotProduct(a, b) {
+  return a.x*b.x + a.y*b.y;
+}
+exports.getDotProduct = getDotProduct;
+
+/**
+ * Checks if the two vectors provided are orthogonal 
+ * @param {Vector} a first vector
+ * @param {Vector} b second vector
+ */
+exports.isOrthogonal = function(a, b) {
+  return 0 >= getDotProduct(a, b);
+}
+
+/**
+ * Calculates the direction between two vectors
+ * @param {Vector} a first vector
+ * @param {Vector} b second vector
+ */
+exports.getDirectionBetweenTwoVectors = function(a, b) {
+  return (config.useRad?1:radtodeg)*Math.acos((getDotProduct(a, b)/(getMagnitude(a)*getMagnitude(b))))
 }

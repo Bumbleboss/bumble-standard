@@ -1,2 +1,2 @@
 exports.Vector = require('./mathematics/vector');
-exports.getSettings = require('./mathematics/settings')
+exports.Vector3D = require('./mathematics/vector3D');

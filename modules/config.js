@@ -1,0 +1,2 @@
+/*Math*/
+exports.useRad = false;
