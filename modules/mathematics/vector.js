@@ -10,7 +10,7 @@ class Vector {
   }
 
   toString() {
-    return  `${utf.vbl + this.x}, ${this.y + utf.vbr}`
+    return `${utf.vbl + this.x}, ${this.y + utf.vbr}`
   }
 
   toLinearCombination() {
