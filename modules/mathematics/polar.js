@@ -1,6 +1,6 @@
 const utf = require('./unicodes');
 const config = require('../config');
-const cart = require('./cartesian')
+const cart = require('./cartesian').CartesianC;
 const degtorad = Math.PI/180;
 
 class PolarC {
@@ -31,6 +31,6 @@ exports.getDistance = function(a, b) {
  */
 exports.toCartesian = function(a) {
   let theta = (config.useRad?a.theta:a.theta*degtorad);
-  return new cart.CartesianC(a.r*Math.cos(theta), a.r*Math.sin(theta));
+  return new cart(a.r*Math.cos(theta), a.r*Math.sin(theta));
 }
 

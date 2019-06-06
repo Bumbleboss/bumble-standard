@@ -44,7 +44,7 @@ exports.getMagnitude = getMagnitude;
  * Addition in vectors
  */
 exports.add = function(...args) {
-  let x = 0, y = 0, i = 0;
+  let i = 0, x = 0, y = 0;
   for (;i < args.length; i++) {
     x += args[i].x;
     y += args[i].y;
