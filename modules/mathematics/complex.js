@@ -85,7 +85,7 @@ exports.getRoots = function(a, n) {
   let r = Math.pow(getAbsolute(a), 1/n);
   let ans = []
   for(let i = 0; i < n; i++) {
-    ans.push(new ComplexN(r*(Math.cos(((theta)+(2*i*Math.PI))/n)), r*(Math.sin(((theta)+(2*i*Math.PI))/n))))
+    ans.push(new ComplexN(r*(Math.cos((theta+2*i*Math.PI)/n)), r*(Math.sin((theta+2*i*Math.PI)/n))))
   }
   return ans;
 }
