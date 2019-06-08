@@ -1,6 +1,6 @@
 {
   "name": "bumble-standard",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Library packed with formulas and such based on highschool material",
   "main": "bumble-standard.js",
   "author": {

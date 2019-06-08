@@ -49,18 +49,18 @@ exports.multiply = function(n, a) {
  * Calculates the absolute value of a complex number
  * @param {ComplexN} a complex number
  */
-function getAbsolute(a) {
+function absolute(a) {
   return Math.sqrt(Math.pow(a.rl, 2) + Math.pow(a.im, 2))
 }
-exports.getAbsolute = getAbsolute;
+exports.absolute = absolute;
 
 /**
  * Retrieves the polar form of a complex number
  * @param {ComplexN} a complex number
  */
-exports.getPolarForm = function(a) {
+exports.polarForm = function(a) {
   let theta = Math.atan2(a.im, a.rl);
-  let r = getAbsolute(a);
+  let r = absolute(a);
   return `${r}(cos(${theta}) + ${utf.i}sin(${theta}))`
 }
 
@@ -69,9 +69,9 @@ exports.getPolarForm = function(a) {
  * @param {ComplexN} a complex number
  * @param {Number} n exponent value
  */
-exports.getDeMoivreTheorem = function (a, n) {
+exports.deMoivreTheorem = function (a, n) {
   let theta = Math.atan2(a.im, a.rl)*n;
-  let r = Math.pow(getAbsolute(a), n);
+  let r = Math.pow(absolute(a), n);
   return `${r}(cos(${theta}) + ${utf.i}sin(${theta}))`
 }
 
@@ -80,9 +80,9 @@ exports.getDeMoivreTheorem = function (a, n) {
  * @param {ComplexN} a complex number
  * @param {Number} n number of roots
  */
-exports.getRoots = function(a, n) {
+exports.roots = function(a, n) {
   let theta = Math.atan(a.im/a.rl)+(a.rl<0?Math.PI:0);
-  let r = Math.pow(getAbsolute(a), 1/n);
+  let r = Math.pow(absolute(a), 1/n);
   let ans = []
   for(let i = 0; i < n; i++) {
     ans.push(new ComplexN(r*(Math.cos((theta+2*i*Math.PI)/n)), r*(Math.sin((theta+2*i*Math.PI)/n))))

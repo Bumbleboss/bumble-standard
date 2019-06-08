@@ -20,7 +20,7 @@ exports.PolarC = PolarC;
  * @param {PolarC} a first polar coordinate
  * @param {PolarC} b second polar coordinate
  */
-exports.getDistance = function(a, b) {
+exports.distance = function(a, b) {
   let theta = (config.useRad?b.theta-a.theta:(b.theta-a.theta)*degtorad);
   return Math.sqrt(Math.pow(a.r, 2) + Math.pow(b.r, 2) - 2*a.r*b.r*Math.cos(theta))
 }

@@ -24,21 +24,21 @@ exports.Vector = Vector;
  * @param {Vector} a start point
  * @param {Vector} b end point
  */
-exports.getComponentForm = function(a, b) {
+exports.componentForm = function(a, b) {
   return new Vector(b.x - a.x, b.y - a.x);
 }
 
 /**
  * Calculates the magnitude of a vector by providing one or two Vector objects
  */
-getMagnitude = function(...args) {
+function magnitude(...args) {
   if(args.length == 1) {
     return Math.sqrt(Math.pow(args[0].x, 2) + Math.pow(args[0].y, 2))
   }else{
     return Math.sqrt(Math.pow(args[1].x - args[0].x, 2) + Math.pow(args[1].y - args[0].y, 2));
   }
 }
-exports.getMagnitude = getMagnitude;
+exports.magnitude = magnitude;
 
 /**
  * Addition in vectors
@@ -77,8 +77,8 @@ exports.multiply = function(n, v) {
  * Calculates the unit of a vector
  * @param {Vector} v the provided vector
  */
-exports.getUnit = function(v) {
-  let la = getMagnitude(v);
+exports.unit = function(v) {
+  let la = magnitude(v);
   return new Vector(v.x/la, v.y/la);
 }
 
@@ -87,7 +87,7 @@ exports.getUnit = function(v) {
  * @param {Number} angle
  * @param {Number} magnitude
  */
-exports.getComponentFormByAngleAndMagnitude = function(angle, magnitude) {
+exports.componentFormByAngleAndMagnitude = function(angle, magnitude) {
   let l = Math.abs(magnitude), a = (config.useRad?1:degtorad)*angle;
   return new Vector(l*Math.cos(a), l*Math.sin(a));
 }
@@ -96,7 +96,7 @@ exports.getComponentFormByAngleAndMagnitude = function(angle, magnitude) {
  * Calculates the direction of a vector
  * @param {Vector} a the provided vector
  */
-exports.getDirection = function(a) {
+exports.direction = function(a) {
   return (config.useRad?1:radtodeg)*Math.atan2(a.y, a.x)
 }
 
@@ -105,10 +105,10 @@ exports.getDirection = function(a) {
  * @param {Vector} a first vector
  * @param {Vector} b second vector
  */
-function getDotProduct(a, b) {
+function dotProduct(a, b) {
   return a.x*b.x + a.y*b.y;
 }
-exports.getDotProduct = getDotProduct;
+exports.dotProduct = dotProduct;
 
 /**
  * Checks if the two vectors provided are orthogonal 
@@ -116,7 +116,7 @@ exports.getDotProduct = getDotProduct;
  * @param {Vector} b second vector
  */
 exports.isOrthogonal = function(a, b) {
-  return 0 >= getDotProduct(a, b);
+  return 0 >= dotProduct(a, b);
 }
 
 /**
@@ -124,6 +124,6 @@ exports.isOrthogonal = function(a, b) {
  * @param {Vector} a first vector
  * @param {Vector} b second vector
  */
-exports.getDirectionBetweenTwoVectors = function(a, b) {
-  return (config.useRad?1:radtodeg)*Math.acos((getDotProduct(a, b)/(getMagnitude(a)*getMagnitude(b))))
+exports.directionBetweenTwoVectors = function(a, b) {
+  return (config.useRad?1:radtodeg)*Math.acos((dotProduct(a, b)/(magnitude(a)*magnitude(b))))
 }

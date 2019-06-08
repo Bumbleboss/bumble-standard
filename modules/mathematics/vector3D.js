@@ -24,28 +24,28 @@ exports.Vector3D = Vector3D;
  * @param {Vector3D} a start point
  * @param {Vector3D} b end point
  */
-exports.getComponentForm = function(a, b) {
+exports.componentForm = function(a, b) {
   return new Vector3D(b.x - a.x, b.y - a.x, b.z - a.z);
 }
 
 /**
  * Calculates the magnitude of a vector by providing one or two Vector3D objects
  */
-getMagnitude = function(...args) {
+function magnitude(...args) {
   if(args.length == 1) {
     return Math.sqrt(Math.pow(args[0].x, 2) + Math.pow(args[0].y, 2) + Math.pow(args[0].z, 2))
   }else{
     return Math.sqrt(Math.pow(args[1].x - args[0].x, 2) + Math.pow(args[1].y - args[0].y, 2) + Math.pow(args[1].z - args[0].z, 2));
   }
 }
-exports.getMagnitude = getMagnitude;
+exports.magnitude = magnitude;
 
 /**
  * Calculates the midpoint of two vectors
  * @param {Vector3D} a first vector
  * @param {Vector3D} b second vector
  */
-exports.getMidPoint = function(a, b) {
+exports.midPoint = function(a, b) {
   return new Vector3D((a.x+b.x)/2, (a.y+b.y)/2, (a.z+b.z)/2)
 }
 
@@ -88,8 +88,8 @@ exports.multiply = function(n, v) {
  * Calculates the unit of a vector
  * @param {Vector3D} v the provided vector
  */
-exports.getUnit = function(v) {
-  let la = getMagnitude(v);
+exports.unit = function(v) {
+  let la = magnitude(v);
   return new Vector3D(v.x/la, v.y/la, v.z/la);
 }
 
@@ -98,10 +98,10 @@ exports.getUnit = function(v) {
  * @param {Vector3D} a first vector
  * @param {Vector3D} b second vector
  */
-function getDotProduct(a, b) {
+function dotProduct(a, b) {
   return a.x*b.x + a.y*b.y + a.z*b.z;
 }
-exports.getDotProduct = getDotProduct;
+exports.dotProduct = dotProduct;
 
 /**
  * Checks if the two vectors provided are orthogonal 
@@ -109,7 +109,7 @@ exports.getDotProduct = getDotProduct;
  * @param {Vector} b second vector
  */
 exports.isOrthogonal = function(a, b) {
-  return 0 >= getDotProduct(a, b);
+  return 0 >= dotProduct(a, b);
 }
 
 /**
@@ -118,7 +118,7 @@ exports.isOrthogonal = function(a, b) {
  * @param {Vector3D} b second vector
  */
 exports.getDirectionBetweenTwo3DVectors = function(a, b) {
-  return (config.useRad?1:radtodeg)*Math.acos((getDotProduct(a, b)/(getMagnitude(a)*getMagnitude(b))))
+  return (config.useRad?1:radtodeg)*Math.acos((dotProduct(a, b)/(magnitude(a)*magnitude(b))))
 }
 
 /**
@@ -126,10 +126,10 @@ exports.getDirectionBetweenTwo3DVectors = function(a, b) {
  * @param {Vector3D} a first vector
  * @param {Vector3D} b second vector
  */
-function getCrossProduct(a, b) {
+function crossProduct(a, b) {
   return new Vector3D((a.y*b.z - a.z*b.y), -1*(a.x*b.z - a.z*b.x), (a.x*b.y - a.y*b.x));
 }
-exports.getCrossProduct = getCrossProduct;
+exports.crossProduct = crossProduct;
 
 /**
  * Calculates the triple scalar product of the provided vectors
@@ -137,7 +137,7 @@ exports.getCrossProduct = getCrossProduct;
  * @param {Vector3D} b second vector
  * @param {Vector3D} c third vector
  */
-exports.getTripleScalarProduct = function(a, b, c) {
-  let ans = getCrossProduct(a, b);
+exports.tripleScalarProduct = function(a, b, c) {
+  let ans = crossProduct(a, b);
   return new Vector3D(ans.x*c.x, ans.y*c.y, ans.z*c.z);
 }
